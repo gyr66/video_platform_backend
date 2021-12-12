@@ -1,0 +1,44 @@
+{
+  "properties": [
+    {
+      "name": "minio.accessKey",
+      "type": "java.lang.String",
+      "description": "用户名."
+    },
+    {
+      "name": "minio.secretKey",
+      "type": "java.lang.String",
+      "description": "密码."
+    },
+    {
+      "name": "minio.endpoint",
+      "type": "java.lang.String",
+      "description": "API地址."
+    },
+    {
+      "name": "minio.bucketName",
+      "type": "java.lang.String",
+      "description": "桶名字."
+    },
+    {
+      "name": "tus.server.data.directory",
+      "type": "java.lang.String",
+      "description": "tus文件上传存放路径."
+    },
+    {
+      "name": "ffmpegtoolpath",
+      "type": "java.lang.String",
+      "description": "FFmpeg工具位置."
+    },
+    {
+      "name": "uploadpath",
+      "type": "java.lang.String",
+      "description": "视频缩略图生成工具工作区."
+    },
+    {
+      "name": "downloadtoolpath",
+      "type": "java.lang.String",
+      "description": "视频下载工具."
+    }
+  ]
+}

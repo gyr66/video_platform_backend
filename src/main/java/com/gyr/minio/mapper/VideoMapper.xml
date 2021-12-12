@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gyr.minio.mapper.VideoMapper">
+
+    <resultMap id="videoMap" type="video">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <collection property="tags" column="id" select="getAllTagsById"/>
+    </resultMap>
+
+    <select id="getAllTagsById" resultType="int" parameterType="String">
+        SELECT tid
+        FROM video_tag
+        WHERE vid = #{id}
+    </select>
+
+    <insert id="upload" parameterType="video">
+        INSERT INTO videos
+        VALUES (#{id}, #{name}, #{uploader}, #{uploadTime}, #{encrypt}, #{size})
+    </insert>
+
+    <update id="update" parameterType="video">
+        UPDATE videos
+        SET name = #{name}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        DELETE
+        FROM videos
+        WHERE id = #{id}
+    </delete>
+
+    <select id="getByCondition" parameterType="condition" resultMap="videoMap">
+        select distinct id, name, uploader, uploadTime, encrypt, size from videos, video_tag WHERE id = vid AND name LIKE '%${name}%'
+        AND tid in
+        <foreach collection="tags" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        ORDER BY ${orderProp} ${order}
+    </select>
+
+</mapper>

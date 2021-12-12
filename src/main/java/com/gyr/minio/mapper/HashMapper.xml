@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gyr.minio.mapper.HashMapper">
+    <select id="checkExists" parameterType="string" resultType="int">
+        SELECT COUNT(*)
+        FROM video_hash
+        WHERE hash = #{md5}
+    </select>
+
+    <insert id="append" parameterType="string">
+        INSERT INTO video_hash
+        VALUES (#{vid}, #{md5})
+    </insert>
+
+    <delete id="remove" parameterType="string">
+        DELETE
+        FROM video_hash
+        WHERE vid = #{id}
+    </delete>
+</mapper>
