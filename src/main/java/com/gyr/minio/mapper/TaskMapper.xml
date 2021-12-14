@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gyr.minio.mapper.TaskMapper">
+    <select id="getAll" resultType="task">
+        SELECT *
+        FROM tasks
+    </select>
+
+    <insert id="insert" parameterType="task">
+        INSERT INTO tasks
+        VALUES (#{id}, #{url}, #{createTime}, #{status})
+    </insert>
+
+    <update id="updateStatus" parameterType="string">
+        UPDATE tasks
+        SET status = #{status}
+        WHERE id = #{taskId}
+    </update>
+
+</mapper>

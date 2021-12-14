@@ -2,10 +2,7 @@ package com.gyr.minio.service;
 
 import com.gyr.minio.bean.Video;
 import com.gyr.minio.task.CleanTempTask;
-import com.gyr.minio.utils.HLSUtil;
-import com.gyr.minio.utils.MD5Util;
-import com.gyr.minio.utils.MinioUtil;
-import com.gyr.minio.utils.ThumbnailGenerateUtil;
+import com.gyr.minio.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +33,9 @@ public class VideoProcessingService {
     HLSUtil hlsUtil;
 
     @Autowired
+    ConvertUtil convertUtil;
+
+    @Autowired
     VideoService videoService;
 
     @Autowired
@@ -53,6 +53,7 @@ public class VideoProcessingService {
         String id = path.substring(path.lastIndexOf('\\') + 1);
         File dir = new File((path)); // 上传的目录
         File target = Objects.requireNonNull(dir.listFiles())[0]; // 目标文件
+        Date now = new Date(); // 上传时间
         // 获取视频大小
         double videoSize = (double)target.length() / 1024.0 / 1014.0;
         // 获取视频MD5
@@ -60,7 +61,12 @@ public class VideoProcessingService {
         // 得到视频名称和后缀
         String originalFileName = target.getName();
         String originalSuffix = originalFileName.substring(originalFileName.lastIndexOf("."));
-        Date now = new Date(); // 上传时间
+        // 对不是mp4格式的视频进行格式转化（费时）
+//        if (!originalSuffix.equals(".mp4")) convertUtil.convert(id, originalFileName);
+//        originalSuffix = ".mp4";
+//        originalFileName = originalFileName.substring(0, originalFileName.lastIndexOf(".")) + originalSuffix;
+//        System.out.println(originalFileName);
+//        System.out.println(originalSuffix);
         // 生成缩略图并上传服务器
         File thumbnail = thumbnailGenerateUtil.getThumbnail(id, originalFileName);
         FileInputStream is = new FileInputStream(target);

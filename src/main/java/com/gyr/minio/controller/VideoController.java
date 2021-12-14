@@ -8,6 +8,7 @@ import com.gyr.minio.service.MinioService;
 import com.gyr.minio.service.VideoService;
 import com.gyr.minio.task.CleanTempTask;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+@PreAuthorize("hasRole('admin')")
 @RestController
 @RequestMapping("/video")
 public class VideoController {

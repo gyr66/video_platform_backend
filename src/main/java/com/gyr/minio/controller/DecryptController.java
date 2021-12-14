@@ -8,11 +8,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 
+@PreAuthorize("hasRole('admin')")
 @RestController
 public class DecryptController {
 
     @RequestMapping("/decrypt")
-//    @PreAuthorize("hasRole('admin')")
     public byte[] decrypt() {
         File file = new File("D:\\temp\\uploads\\encrypt.key");
         try {
